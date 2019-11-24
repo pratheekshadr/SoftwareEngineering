@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>COOK BOOK</title>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	 
+	  <!-- if separate -->
+	  <!-- <link rel="stylesheet" href="C:/Users/prath/Desktop/SE/Project/static/styles/homepage.css"> -->
+	  <!-- if flask use this -->
+	  <link href="{{ url_for('static', filename='styles/homePage.css') }}" rel="stylesheet" type="text/css" >
+
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	</head>
+	<body onload="recipesObj.filterRecipes()">
+		
+	<nav class="navbar navbar-expand-sm">
+		<div class="row">
+			<div class="col-sm-10 col-md-6 col-lg-9">
+				<div class="row">
+					<div class="col-sm-2 col-md-3 col-lg-5">
+						<div class="row"><br>
+							<div id="login"  onclick="back()">Back</div> 			
+						</div>
+
+					</div>
+					
+					<div class="col-sm-4 col-md-4 col-lg-7" >
+						<h1><p>COOK BOOK</p></h1>
+					</div>
+				</div>	
+			</div>
+			<div  class="cotainer-fluid col-sm-2 col-md-6 col-lg-3"  ><br>
+				<div id="searchForm" class="form-inline my-2 my-lg-0">
+					<input id='searchele' class="form-control mr-sm-2" type="search" placeholder="SearchRecipe" aria-label="Search">
+					<button id="searchBtn" class="btn btn-outline-success my-2 my-sm-0" onclick="recipesObj.filterRecipes()">Search</button>
+				</div>
+				
+			</div>
+		</div>
+	</nav>
+	<div class="container-fluid">
+		<div class="row">
+			<div id="recipeBar" class="col-sm-10 col-md-6 col-lg-9" >
+				<div id="recipeParent" class="container-fluid">
+				</div>	
+			</div>
+			<div id="queryBar" class="col-sm-2 col-md-6 col-lg-3"  >
+					<form>
+						<p id="cuisine" onclick="cuisineObj.getCuisines()">Cuisines show more...</p>
+						<div id="cuisineparent" style="display: none;">
+						</div>
+
+						<p id="type" onclick="foodTypeObj.foodTypeshow()" >Veg/Non-veg show more...</p>
+						<div id="vegNonVeg"  style="display: none;">
+							
+                                <div class="custom-control custom-radio foodTypeClass" style="display:none;">
+                                    <input type="radio" id="veg" name="customRadio" class=" custom-control-input" value="veg" >
+                                    <label class="custom-control-label" for="veg">Veg</label>
+                                </div>
+                                <div class="custom-control custom-radio foodTypeClass" style="display:none;">
+                                    <input type="radio" id="nonveg" name="customRadio" class=" custom-control-input" value="nonVeg">
+                                    <label class="custom-control-label" for="nonveg">Non Veg</label>
+                                </div>
+                                <div class="custom-control custom-radio foodTypeClass" style="display:none;">
+                                    <input type="radio" id="any" name="customRadio" class=" custom-control-input" value="both" checked>
+                                    <label class="custom-control-label" for="any">Any</label>
+                                </div>		
+                            </div>
+	
+						<p id="mealType" onclick="mealTypeObj.getMealTypes()">Meal type show more...</p>
+						<div id="mealTypeParent" style="display: none;">
+						</div>
+
+						<p id="preparationTime" onclick="preparationTimeObj.showPreparationTime()">Prep Time show more...</p>
+						<div id="preparationTimeParent" style="display: none;">
+							
+                                <div class="custom-control custom-radio prepTimeClass" style="display:none;">
+                                    <input type="radio" id="15m" name="customRadio1" class=" custom-control-input" value="15m" >
+                                    <label class="custom-control-label" for="15m">  15 mins</label>
+                                </div>
+                                <div class="custom-control custom-radio prepTimeClass" style="display:none;">
+                                    <input type="radio" id="30m" name="customRadio1" class=" custom-control-input" value="30m">
+                                    <label class="custom-control-label" for="nonveg"> 30 mins</label>
+                                </div>
+                                <div class="custom-control custom-radio prepTimeClass" style="display:none;">
+                                    <input type="radio" id="1h" name="customRadio1" class=" custom-control-input" value="1h" >
+                                    <label class="custom-control-label" for="oneh">  1 hour</label>
+                                </div>
+                                <div class="custom-control custom-radio prepTimeClass" style="display:none;">
+                                    <input type="radio" id="5h" name="customRadio1" class=" custom-control-input" value="5h">
+                                    <label class="custom-control-label" for="5h"> 5 hours</label>
+                                </div>
+                                <div class="custom-control custom-radio prepTimeClass" style="display:none;">
+                                    <input type="radio" id="10h" name="customRadio1" class=" custom-control-input" value="10h">
+                                    <label class="custom-control-label" for="10h"> 10 hours</label>
+                                </div>
+                                <div class="custom-control custom-radio prepTimeClass" style="display:none;">
+                                    <input type="radio" id="all" name="customRadio1" class=" custom-control-input" value="all" checked>
+                                    <label class="custom-control-label" for="all">All</label>
+                                </div>		
+                            </div>
+    
+
+						<p id="likes" onclick="likesObj.changeState()">	Click here to sort based on likes </p>
+
+						<div id="filterBtn" onclick="recipesObj.filterRecipes()"><b>Filter</b></div>
+					</form>
+					<br>
+					<div id="createRecipe" onclick="createRecipe()"><b>Create Recipe</b></div>
+			</div>	
+		</div>		
+	</div>
+
+		<script>
+
+			
+			var likesObj = {
+				statevalue : 0,
+				changeState: function(){
+					if(likesObj.statevalue){
+						likesObj.statevalue = 0;
+						var likesbtn = document.getElementById("likes");
+						likesbtn.innerHTML = 'Click here to sort based on likes';
+					}
+					else{
+						likesObj.statevalue = 1;
+						var likesbtn = document.getElementById("likes");
+						likesbtn.innerHTML = 'Click here to unsort based on likes';
+					}
+					
+				}
+			}
+			
+			
+			function back(){
+				window.location.href = "http://localhost:5000";
+			}
+			function createRecipe()
+			{
+				window.location.href = "http://localhost:5000/createRecipe";
+			}
+			
+			var preparationTimeObj ={
+				showPreparationTime: function(){
+				
+					var divparent = document.getElementById("preparationTimeParent");
+					divparent.style.display ="block";
+					var all = document.getElementsByClassName('prepTimeClass');
+					for (var i = 0; i < all.length; i++) {
+						all[i].style.display = 'block';
+					}
+					var parent = document.getElementById("preparationTime");
+					parent.setAttribute( "onClick", "javascript: preparationTimeObj.hidePreparationTime();" );
+					parent.innerHTML = "Preparation time show less...";
+				},
+				hidePreparationTime: function(){
+					var divparent = document.getElementById("preparationTimeParent");
+					divparent.style.display ="none";
+					var all = document.getElementsByClassName('prepTimeClass');
+					for (var i = 0; i < all.length; i++) {
+						all[i].style.display = 'none';
+					}
+					var parent = document.getElementById("preparationTime");
+					parent.setAttribute( "onClick", "javascript: preparationTimeObj.showPreparationTime();" );
+					parent.innerHTML = "Preparation time show more...";
+				}
+			}
+			var recipesObj = {
+				xhr : new XMLHttpRequest(),
+				xhr1 : new XMLHttpRequest(),
+				getRecipes: function(data){
+					recipesObj.xhr.onreadystatechange = recipesObj.showRecipes;
+					recipesObj.xhr.open("POST", "http://localhost:5000/getMyRecipes", true);
+					recipesObj.xhr.setRequestHeader("Content-Type", "application/json");
+					data = JSON.stringify(data);
+					recipesObj.xhr.responseType="json";
+					recipesObj.xhr.send(data);
+				},
+				showRecipes: function(){
+					if(this.readyState == 4 && this.status== 200)
+					{
+						var recipesArray = this.response;
+						var parent = document.getElementById("recipeParent");
+						parent.innerHTML="";
+
+						for(i in recipesArray)
+						{
+							var recipeObj = recipesArray[i];
+							var recipeRow = document.createElement("div");
+							recipeRow.className = "recipe row";
+
+							var c1 = document.createElement("div");
+							c1.className = "col-sm-2 col-md-2 col-lg-3";
+
+							var imageEle = document.createElement("img");
+							imageEle.src = recipeObj['image']
+							imageEle.alt = "recipeImage";
+							imageEle.className = "img-responsive";
+							imageEle.style = "height:250px;width:200px;";
+
+							c1.innerHTML = '<br>';
+							c1.appendChild(imageEle)
+
+							var c2 = document.createElement("div");
+							c2.className = "row col-sm-8 col-md-4 col-lg-9";
+							c2.style = "font-size:15px;"
+
+							var rname = document.createElement("h3");
+							rname.innerHTML = recipeObj['recipeName'];
+							rname.style = "background-color: rgba(255,255,255, 0.7); ;text-align:center;color:black;border-radius:5px;";						
+							c2.appendChild(rname);
+
+							var p2 = document.createElement("p");
+							p2.innerHTML = recipeObj['procedure'];
+							p2.style = "height:180px;overflow-y:scroll;font-size:17px;";
+							c2.appendChild(p2);
+
+							url = "http://localhost/upvote/"+recipeObj['hashValue'];
+							var p3 = document.createElement("div");
+							p3.innerHTML = '<p style="float:left;width:20vw;margin-left:15px;><a href="#"><span class="glyphicon glyphicon-trash" onclick="recipesObj.delete(\'' + recipeObj['hashValue'] + '\'); return false"></span></a><a href="#"><span class="glyphicon glyphicon-thumbs-up" style="margin-left:10px;">' + recipeObj['likes'] +"</span></a> </p> ";
+							p3.innerHTML += '<p style="float:left;width:15vw;font-size:15px;><a href="#"><span class="glyphicon glyphicon-user"></span></a>'+ recipeObj['userName'] +"</p>";
+							p3.innerHTML += '<p style="float:left;width:15vw;text-align:right;><a href="#"><span class="glyphicon glyphicon-dashboard"></span></a>'+ recipeObj['preparationTime'] +"</p>";
+						
+							c2.appendChild(p3);
+							
+							recipeRow.appendChild(c1);
+							recipeRow.appendChild(c2);
+							parent.appendChild(recipeRow);	
+						}
+					}
+				},
+				filterRecipes: function(){
+					var cuisineCheckedValues = []; 
+					var inputElements = document.getElementsByClassName('cuisineCheckbox');
+					for(var i=0; inputElements[i]; ++i){
+						if(inputElements[i].checked){
+							cuisineCheckedValues.push( inputElements[i].value);
+						}
+					}
+			
+					var foodType = [];
+					var foodTypeVal = $("#vegNonVeg input[type='radio']:checked").val();
+					if( foodTypeVal=="both"){
+						foodType.push("veg");
+						foodType.push("nonVeg");
+					}
+					else{
+						foodType.push(foodTypeVal);
+					}
+				
+					var mealTypeCheckedValues = []; 
+					var inputElements = document.getElementsByClassName('mealTypeCheckbox');
+					for(var i=0; inputElements[i]; ++i){
+						if(inputElements[i].checked){
+							mealTypeCheckedValues.push( inputElements[i].value);
+						}
+					}
+
+
+					var prepTime = $("#preparationTimeParent input[type='radio']:checked").val();
+					
+					likes = likesObj.statevalue;
+
+					var searchbar = document.getElementById('searchele');
+					name = searchbar.value;
+					var filterData = {
+						"cuisine":  cuisineCheckedValues,
+						"foodType": foodType,
+						"mealType": mealTypeCheckedValues,
+						"preparationTime": prepTime,
+						"likes": likes,
+						"recipeName": name
+					};
+					recipesObj.getRecipes(filterData);
+				},
+				delete: function(hashValue){
+					recipesObj.xhr1.onreadystatechange = recipesObj.filterRecipes;
+					recipesObj.xhr1.open("GET", "http://localhost:5000/delete/"+hashValue, true);
+					recipesObj.xhr1.responseType="json";
+					recipesObj.xhr1.send();
+				}	
+			}
+
+			var foodTypeObj ={
+				foodTypeshow: function ()
+				{
+					var divparent = document.getElementById("vegNonVeg");
+					divparent.style.display ="block";
+					var all = document.getElementsByClassName('foodTypeClass');
+						for (var i = 0; i < all.length; i++) {
+							all[i].style.display = 'block';
+						}
+						var parent = document.getElementById("type");
+						parent.setAttribute( "onClick", "javascript: foodTypeObj.foodTypehide();" );
+						parent.innerHTML = "Veg/Non-veg show less...";
+				},
+				foodTypehide: function ()
+				{
+					var divparent = document.getElementById("vegNonVeg");
+					divparent.style.display ="none";
+
+					var all = document.getElementsByClassName('foodTypeClass');
+						for (var i = 0; i < all.length; i++) {
+							all[i].style.display = 'none';
+						}
+						var parent = document.getElementById("type");
+						parent.setAttribute( "onClick", "javascript: foodTypeObj.foodTypeshow();" );
+						parent.innerHTML = "Veg/Non-veg show more...";
+				}
+			}
+		
+			var cuisineObj = {
+				xhr : new XMLHttpRequest(),
+				getCuisines: function(){
+					cuisineObj.xhr.onreadystatechange = this.showCuisines;
+					cuisineObj.xhr.open("GET","http://localhost:5000/getCuisines", true);
+					cuisineObj.xhr.responseType="json";
+					cuisineObj.xhr.send();
+				},
+				showCuisines: function(){
+					if(this.readyState == 4 && this.status== 200)
+					{	
+						var cuisinesArray = this.response;
+						var parent = document.getElementById("cuisineparent");
+						parent.style.display ="block";
+						for(i in cuisinesArray)
+						{
+							var d = document.createElement("div");
+							d.className = "cuisineClass custom-control custom-checkbox";
+							var c1 = document.createElement("input");
+							c1.type = "checkbox";
+							c1.className = "cuisineCheckbox custom-control-input";
+							c1.id = cuisinesArray[i];
+							c1.value = cuisinesArray[i];
+							d.appendChild(c1);
+
+							var c2 = document.createElement("label");
+							c2.className = "custom-control-label";
+							c2.for = cuisinesArray[i];
+							c2.innerHTML =cuisinesArray[i];
+
+							d.appendChild(c2);
+							parent.appendChild(d);
+						}
+						var p = document.getElementById("cuisine");
+						p.setAttribute( "onClick", "javascript: cuisineObj.cuisinehide();" );
+					}
+				},
+				cuisineshow: function(){
+					
+					var divparent = document.getElementById("cuisineparent");
+					divparent.style.display="block";
+					var all = document.getElementsByClassName('cuisineclass');
+					for (var i = 0; i < all.length; i++) {
+						all[i].style.display = 'block';
+					}
+					var parent = document.getElementById("cuisine");
+					parent.setAttribute( "onClick", "javascript: cuisineObj.cuisinehide();" );
+					parent.innerHTML = "Cuisines show less...";
+				},
+				cuisinehide: function()
+				{
+					var divparent = document.getElementById("cuisineparent");
+					divparent.style.display="none";
+					
+					var all = document.getElementsByClassName('cuisineclass');
+					for (var i = 0; i < all.length; i++) {
+						all[i].style.display = 'none';
+					}
+					var parent = document.getElementById("cuisine");
+					parent.setAttribute( "onClick", "javascript: cuisineObj.cuisineshow();" );
+					parent.innerHTML = "Cuisines show more...";
+				}
+			}
+
+			var mealTypeObj = {
+				xhr : new XMLHttpRequest(),
+				getMealTypes: function(){
+					mealTypeObj.xhr.onreadystatechange = this.showMealTypes;
+					mealTypeObj.xhr.open("GET","http://localhost:5000/getMealTypes", true);
+					mealTypeObj.xhr.responseType="json";
+					mealTypeObj.xhr.send();
+				},
+				showMealTypes: function(){
+					if(cuisineObj.xhr.readyState == 4 && cuisineObj.xhr.status== 200)
+					{	
+						var mealTypesArray = this.response;
+						var parent = document.getElementById("mealTypeParent");
+						parent.style.display = "block";
+
+						for(i in mealTypesArray)
+						{
+							var d = document.createElement("div");
+							d.className = "mealTypeClass custom-control custom-checkbox";
+							var c1 = document.createElement("input");
+							c1.type = "checkbox";
+							c1.className = "mealTypeCheckbox custom-control-input";
+							c1.id = mealTypesArray[i];
+							c1.value = mealTypesArray[i];
+							d.appendChild(c1);
+
+							var c2 = document.createElement("label");
+							c2.className = "custom-control-label";
+							c2.for = mealTypesArray[i];
+							c2.innerHTML = mealTypesArray[i];
+
+							d.appendChild(c2);
+							parent.appendChild(d);
+						}
+						var p = document.getElementById("mealType");
+						p.setAttribute( "onClick", "javascript: mealTypeObj.mealTypehide();" );
+					}
+				},
+				mealTypeshow: function(){
+					var divparent = document.getElementById("mealTypeParent");
+					divparent.style.display="block";
+					var all = document.getElementsByClassName('mealTypeClass');
+					for (var i = 0; i < all.length; i++) {
+						all[i].style.display = 'block';
+					}
+					var parent = document.getElementById("mealType");
+					parent.setAttribute( "onClick", "javascript:  mealTypeObj.mealTypehide();" );
+					parent.innerHTML = "Meal Type show less...";
+				},
+				mealTypehide: function()
+				{
+					var divparent = document.getElementById("mealTypeParent");
+					divparent.style.display="none";
+					var all = document.getElementsByClassName('mealTypeClass');
+					for (var i = 0; i < all.length; i++) {
+						all[i].style.display = 'none';
+					}
+					var parent = document.getElementById("mealType");
+					parent.setAttribute( "onClick", "javascript: mealTypeObj.mealTypeshow();" );
+					parent.innerHTML = "Meal Type show more...";
+				}
+			}			
+		</script>
+	</body>
+</html>

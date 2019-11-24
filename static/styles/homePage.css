@@ -1,0 +1,112 @@
+
+#searchForm{
+    margin-left:auto; 
+    margin-right:0;  
+}
+#searchBtn{ 
+    border-color: cadetblue;
+    color: black;
+}
+
+#searchBtn:hover{
+    background-color: rgb(0, 0, 0); 
+    background-color: rgba(0,0,0, 0.7); 
+    border: 3px solid #f1f1f1;
+    color:white;
+}
+
+.recipe{
+    margin: 20px;
+}
+
+#cuisine, #type, #mealType, #likes, #preparationTime{
+    font-size: 18px;
+    text-align: center;
+    background-color: rgb(0, 0, 0); 
+    background-color: rgba(0,0,0, 0.7); 
+    border: 2px solid #f1f1f1;
+    color:white;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+body{
+    font-family: Apple Chancery, cursive;
+    background-image: url("../images/homepage.jpg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+#login:hover, #signup:hover, #profile:hover{
+    background-color: rgb(0, 0, 0); 
+    background-color: rgba(0,0,0, 0.7); 
+    border: 3px solid #f1f1f1;
+    color:white;
+}
+
+#login, #signup, #profile{
+    margin-left: 20px;
+    width:200px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: rgba(255,255,255, 0.7);
+    color: black;
+}
+
+#filterBtn, #createRecipe{
+    height: 35px;
+    text-align: center;
+    font-size: 20px;    
+    background-color: rgba(255,255,255, 0.6);
+    border: 2px solid #f1f1f1;
+    color:black;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.navbar{
+    background-color: rgb(0, 0, 0); 
+    background-color: rgba(0,0,0, 0.7); 
+    border: 3px solid #f1f1f1;
+    color:white;
+}
+
+#filterBtn:hover, #cuisine:hover, #type:hover, #mealType:hover,
+#createRecipe:hover, #searchBtn:hover, #login:hover, #signup:hover, 
+#likes:hover, #preparationTime:hover,  #profile:hover{
+    transform: scale(1.09); 
+}
+
+#cuisineparent, #mealTypeParent, #vegNonVeg, #preparationTimeParent{
+    height:150px;
+    overflow-y: scroll;
+    background-color: rgb(0, 0, 0); 
+    background-color: rgba(0,0,0, 0.7); 
+    border: 3px solid #f1f1f1;
+    color:white;
+    padding: 15px;
+    font-size: 20px;
+    border-radius: 20px;
+  }
+
+#recipeBar, #queryBar{
+    height: 550px;
+    overflow-y: scroll;
+}
+ 
+::-webkit-scrollbar {
+    width: 0px;  
+    background: transparent;  
+}
+
+
+.recipe{
+    background-color: rgb(0, 0, 0); 
+    background-color: rgba(0,0,0, 0.7); 
+    border: 3px solid #f1f1f1;
+    color:white;
+}
